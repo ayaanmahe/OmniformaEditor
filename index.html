@@ -1662,8 +1662,8 @@ body {
     <option value="mega">Arduino Mega 2560</option>
     <option value="nano">Arduino Nano</option>
     <option value="esp32">ESP32 DevKit</option>
+    <option value="esp32cam">ESP32-CAM (ESP32-S)</option>
     <option value="esp8266">ESP8266 (NodeMCU / D1 Mini)</option>
-    <option value="rp2040">Raspberry Pi Pico (RP2040)</option>
     <option value="leonado">Arduino Leonardo</option>
   </select>
   <span id="board-info">14 digital · 6 analog · 6 PWM · 32KB flash</span>
@@ -5455,15 +5455,15 @@ const BOARDS = {
     color:"#2980b9",
     svgW:240, svgH:110,
   },
-  rp2040: {
-    name:"Raspberry Pi Pico", mcu:"RP2040",
-    flash:"2MB", ram:"264KB", freq:"133MHz",
-    digital:26, analog:3,
-    pwmPins:[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22],
-    nonPwmPins:[23,24,25],   // GP23=SMPS, GP24=VBUS sense, GP25=LED (no PWM out)
-    info:"26 GPIO · 3 analog · 16 PWM · 2MB flash · Dual-core",
-    color:"#4caf50",
-    svgW:200, svgH:90,
+  esp32cam: {
+    name:"ESP32-CAM", mcu:"ESP32-S",
+    flash:"4MB", ram:"520KB", freq:"240MHz",
+    digital:16, analog:0,
+    pwmPins:[1,3,12,13,14,15,16,17],
+    nonPwmPins:[0,2,4,5,6,7,8,9,10,11,18,19,20,21,22,23,24,25],
+    info:"16 GPIO · 0 analog · 8 PWM · 4MB flash · WiFi/BT + Camera",
+    color:"#e67e22",
+    svgW:240, svgH:110,
   },
   leonado: {
     name:"Arduino Leonardo", mcu:"ATmega32U4",
@@ -6328,7 +6328,7 @@ function renderAnalogTable() {
     nano:  ["LDR/A0","POT/A1","TEMP/A2","MIC/A3","SDA/A4","SCL/A5","A6","A7"],
     mega:  ["A0","A1","A2","A3","A4","A5","A6","A7"],
     esp32: ["ADC0","ADC3","ADC4","ADC5","ADC6","ADC7"],
-    rp2040:["GP26","GP27","GP28","GP29","—","—","—","—"],
+    esp32cam:["—","—","—","—","—","—","—","—"],
     leonado:["A0","A1","A2","A3","A4","A5"],
   };
   const names = chanNames[currentBoardKey] || [];
@@ -6834,8 +6834,8 @@ async function doCloudCompile() {
 
   const fqbnMap = {
     uno:'arduino:avr:uno', mega:'arduino:avr:mega', nano:'arduino:avr:nano',
-    esp32:'esp32:esp32:esp32', esp8266:'esp8266:esp8266:nodemcuv2',
-    rp2040:'rp2040:rp2040:rpipico', leonado:'arduino:avr:leonardo'
+    esp32:'esp32:esp32:esp32', esp32cam:'esp32:esp32:esp32cam', esp8266:'esp8266:esp8266:nodemcuv2',
+    leonado:'arduino:avr:leonardo'
   };
   const fqbn = fqbnMap[currentBoardKey] || 'arduino:avr:uno';
 
